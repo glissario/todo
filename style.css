@@ -1,0 +1,22 @@
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 15px;
+}
+
+body {
+  max-width: 400px;
+}
+
+.header {
+  background-color: #3581b8;
+  color: white;
+  text-align: center;
+  padding-bottom: 0.2rem;
+  border: 2px black solid;
+  margin-bottom: 0.66rem;
+}
