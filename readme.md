@@ -1,3 +1,3 @@
-Gerüst gebaut
-CSS und html verknüpft
-erste Sicherung
+- Gerüst gebaut
+- CSS und html verknüpft
+- erste Sicherung
