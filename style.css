@@ -9,7 +9,7 @@ html {
 }
 
 body {
-  max-width: 400px;
+  max-width: 700px;
 }
 
 .header {
@@ -19,4 +19,14 @@ body {
   padding-bottom: 0.2rem;
   border: 2px black solid;
   margin-bottom: 0.66rem;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 40% auto;
+}
+
+.ausgabe {
+  background-color: red;
+  margin-left: 1rem;
 }

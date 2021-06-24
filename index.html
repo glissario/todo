@@ -15,8 +15,44 @@
       <h2>Aufgaben auflisten, als erledigt markieren, filtern, löschen</h2>
     </header>
     <main>
-      <input type="text" id="textinput" placeholder="Aufgabe" />
-      <input type="submit" value="add" />
+      <article class="layout">
+        <div>
+          <section>
+            <h3>Eingabe neuer Aufgaben:</h3>
+            <input type="text" id="textinput" placeholder="Aufgabe" />
+            <input type="submit" value="add" />
+          </section>
+          <section>
+            <h3>Filter und Actions</h3>
+            <fieldset>
+              <legend>Filter</legend>
+              <input name="all" type="radio" id="all" />
+              <label>All</label><br />
+              <input name="none" type="radio" id="none" />
+              <label>None</label> <br />
+              <input name="done" type="radio" id="done" />
+              <label>Done</label> <br />
+              <button>Filtern</button>
+            </fieldset>
+            <fieldset>
+              <legend>Actions</legend>
+              <input name="list" type="radio" id="list" />
+              <label>Auflisten</label> <br />
+              <input name="mark" type="radio" id="mark" />
+              <label>als erledigt markieren</label><br />
+              <input name="remove" type="radio" id="remove" />
+              <label>Löschen</label> <br />
+              <button>Ausführen</button>
+            </fieldset>
+          </section>
+        </div>
+        <section>
+          <h3>Ausgabe</h3>
+          <fieldset class="ausgabe">
+            <output id="output" class="output"> Test </output>
+          </fieldset>
+        </section>
+      </article>
     </main>
   </body>
 </html>
