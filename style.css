@@ -10,10 +10,18 @@ html {
 
 body {
   max-width: 700px;
+  margin: auto;
+  margin-top: 1rem;
+  background-color: #cad2e7;
+}
+
+main {
+  padding: 1rem;
+  _background-color: red;
 }
 
 .header {
-  background-color: #3581b8;
+  background-color: #001845;
   color: white;
   text-align: center;
   padding-bottom: 0.2rem;
@@ -26,7 +34,11 @@ body {
   grid-template-columns: 40% auto;
 }
 
+.fieldset {
+  background-color: #2187ec;
+  padding: 0.5rem 1rem;
+}
+
 .ausgabe {
-  background-color: red;
   margin-left: 1rem;
 }

@@ -23,24 +23,23 @@
             <input type="submit" value="add" />
           </section>
           <section>
-            <h3>Filter und Actions</h3>
-            <fieldset>
-              <legend>Filter</legend>
-              <input name="all" type="radio" id="all" />
+            <h3>Filter</h3>
+            <fieldset class="fieldset">
+              <input name="filter" value="all" type="radio" id="all" />
               <label>All</label><br />
-              <input name="none" type="radio" id="none" />
+              <input name="filter" value="none" type="radio" id="none" />
               <label>None</label> <br />
-              <input name="done" type="radio" id="done" />
+              <input name="filter" value="done" type="radio" id="done" />
               <label>Done</label> <br />
               <button>Filtern</button>
             </fieldset>
-            <fieldset>
-              <legend>Actions</legend>
-              <input name="list" type="radio" id="list" />
+            <h3>Actions</h3>
+            <fieldset class="fieldset">
+              <input name="action" value="list" type="radio" id="list" />
               <label>Auflisten</label> <br />
-              <input name="mark" type="radio" id="mark" />
+              <input name="action" value="mark" type="radio" id="mark" />
               <label>als erledigt markieren</label><br />
-              <input name="remove" type="radio" id="remove" />
+              <input name="action" value="remove" type="radio" id="remove" />
               <label>Löschen</label> <br />
               <button>Ausführen</button>
             </fieldset>
