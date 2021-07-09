@@ -46,10 +46,13 @@ main {
 }
 
 .output {
-  _margin-left: 1rem;
+  margin-bottom: 1rem;
   height: 100%;
   _background-color: blueviolet;
 }
+
+.output-field {
+  height: 100%;
 
 .blueButton {
   box-shadow: inset 0px -3px 7px 0px #29bbff;
