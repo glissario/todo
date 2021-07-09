@@ -6,3 +6,7 @@
 
 - alle Funktionen implementiert
 - Layout via grid
+
+  09.07.:
+
+- modified button
