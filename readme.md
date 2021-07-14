@@ -10,3 +10,10 @@
   09.07.:
 
 - modified button
+
+  14.07.:
+
+- relaunch
+- first funktions: add Task
+- mark done tasks
+- restyle
