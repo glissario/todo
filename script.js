@@ -44,9 +44,9 @@ function addListEntry(e) {
   const oldList = document.querySelector("#eventList");
   oldList.appendChild(line);
 
-  console.log(input);
+  //console.log(input);
   toDoList.push(input);
-  //localStorage.setItem("storageList", JSON.stringify(toDoList));
+  localStorage.setItem("storageList", JSON.stringify(toDoList));
 
   input = document.querySelector("#taskInput").value = "";
 }
