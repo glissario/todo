@@ -41,10 +41,23 @@ function addListEntry(e) {
   input = document.querySelector("#taskInput").value = "";
 }
 
-// removeButton
+// removeButton and function
 
-//let removeButton = document.querySelector("#removeButton");
-//removeButton.addEventListener ("click", removeDoneTasks)
+let removeButton = document.querySelector("#removeButton");
+removeButton.addEventListener("click", removeDoneTasks);
+
+function removeDoneTasks() {
+  const doneTask = document.querySelectorAll(
+    ".yourToDo__eventList__listElement"
+  );
+
+  for (let i = 0; i < doneTask.length; i++) {
+    let cb = doneTask[i].firstChild;
+    if (cb.checked) {
+      doneTask[i].remove();
+    }
+  }
+}
 
 // Filter List
 
