@@ -1,3 +1,4 @@
+/* general */
 *,
 *:before,
 *:after {
@@ -41,11 +42,14 @@ h2 {
   height: 8rem;
 }
 
-.input {
+.taskInput__textInput {
   padding: 0.5rem;
   margin-right: 1rem;
+  border-radius: 10%;
+  border: 0;
 }
 
+/* second Button with same style*/
 .button {
   padding: 0.5rem;
   background-color: #118ab2;
@@ -56,42 +60,40 @@ h2 {
   margin-top: 0.75rem;
 }
 
-.options {
+.TaskOptions {
   margin-top: 2rem;
 }
-.input {
-  border-radius: 10%;
+
+.TaskOptions__radioOptions {
   border: 0;
+  margin: 0;
+  padding: 0;
 }
 
 .radioLabel {
   display: block;
 }
 
-.inputRadio {
+.TaskOptions__radioOptions__inputRadio {
   display: inline;
   margin-bottom: 0.6rem;
 }
 
-.radioOptions {
-  border: 0;
-  margin: 0;
-  padding: 0;
-}
-
+/* Ausgabebereich */
 .yourToDo {
   margin-top: 2.5rem;
 }
 
-.eventList {
+.yourToDo__eventList {
   list-style: none;
-  padding-left: 0;
+  padding-left: 0px;
 }
 
-.listElement {
+.yourToDo__eventList__listElement {
   margin: 0.5rem 0rem;
   background-color: #ffffff;
   border-radius: 10%;
+  padding-left: 0px;
 }
 
 .taskName {

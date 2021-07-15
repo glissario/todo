@@ -14,23 +14,23 @@
       <h1>Todo App</h1>
     </header>
     <main>
-      <section >
-        <input type="text" class="input" id="taskInput" name="taskInput" placeholder="get sh*i done!" />
+      <section class="taskInput">
+        <input type="text" class="taskInput__textInput" id="taskInput" name="taskInput" placeholder="get sh*i done!" />
         <button class="button" id="addButton">Add</button>
       </section>
-      <section class="options">
+      <section class="TaskOptions">
         <h2> Filter & Options</h2>
-        <fieldset name="option" class="radioOptions" id="radioOptions">
-          <label class="radioLabel"><Input name="filter" value="0" type="radio" class="inputRadio" id="filter" > All</option></label>
-          <label class="radioLabel"><Input name="filter" value="1" type="radio" class="inputRadio" id="filter" > Open</option></label>
-          <label class="radioLabel"><input name="filter" value="2" type="radio" class="inputRadio" id="filter" checked="checked"> Done</option></label>
+        <fieldset name="option" class="TaskOptions__radioOptions" id="radioOptions">
+          <label class="radioLabel"><Input name="filter" value="0" type="radio" class="TaskOptions__radioOptions__inputRadio" id="filter" > All</option></label>
+          <label class="radioLabel"><Input name="filter" value="1" type="radio" class="TaskOptions__radioOptions__inputRadio" id="filter" > Open</option></label>
+          <label class="radioLabel"><input name="filter" value="2" type="radio" class="TaskOptions__radioOptions__inputRadio" id="filter" checked="checked"> Done</option></label>
         </fieldset>
           <button id="removeButton" class="button">Remove Done Todos</button>
         </fieldset>
       </section>
       <section class="yourToDo">
         <h2> Your Todos</h2>
-        <ul id="eventList" class="eventList">
+        <ul id="eventList" class="yourToDo__eventList">
         </ul>
       </section>
     </main>

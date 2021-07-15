@@ -5,8 +5,14 @@ let actualFilter = null;
 // add Task to List
 
 let addButton = document.querySelector("#addButton");
-
 addButton.addEventListener("click", addListEntry);
+
+let addInput = document.querySelector("#taskInput");
+addInput.addEventListener("keydown", function (e) {
+  if (e.keyCode === 13) {
+    addListEntry(e);
+  }
+});
 
 function addListEntry(e) {
   const line = document.createElement("li");
@@ -24,7 +30,7 @@ function addListEntry(e) {
   currentLabel.className = "taskName";
 
   //connect with list element
-  line.className = "listElement";
+  line.className = "yourToDo__eventList";
   line.appendChild(checkbox);
   line.appendChild(currentLabel);
   currentLabel.appendChild(node);
