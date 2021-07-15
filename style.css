@@ -163,20 +163,24 @@ h2 {
 }
 .taskCheckbox:checked {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' aria-hidden='true' focusable='false' %3E%3Cpath fill='none' stroke='white' stroke-width='3' d='M1.73 12.91l6.37 6.37L22.79 4.59' /%3E%3C/svg%3E");
+  border: 1px, #118ab2, solid;
 }
 
 .taskCheckbox:hover {
-  border: 2px #f5ab00 solid;
+  border: 1px, #118ab2, solid;
   transition: 0.5s;
 }
 .taskCheckbox:active {
-  border: 0;
+  border: 1px, #118ab2, solid;
   transition: 0.5s;
 }
 
 .taskCheckbox:focus {
-  border: 2px #f5ab00 solid;
+  border: 1px, #118ab2, solid;
   transition: 0.5s;
+  box-shadow: 0;
+  text-decoration-style: none;
+  font-style: normal;
 }
 
 input[type="checkbox"]:checked + label {
