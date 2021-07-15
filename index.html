@@ -20,10 +20,10 @@
       </section>
       <section class="TaskOptions">
         <h2> Filter & Options</h2>
-        <fieldset name="option" class="TaskOptions__radioOptions" id="radioOptions">
-          <label class="radioLabel"><Input name="filter" value="0" type="radio" class="TaskOptions__radioOptions__inputRadio" id="filter" > All</option></label>
+        <fieldset name="option" class="TaskOptions__radioOptions" id="radioOptions" onclick="taskFilter()">
+          <label class="radioLabel"><Input name="filter" value="0" type="radio" class="TaskOptions__radioOptions__inputRadio" id="filter" checked="checked"> All</option></label>
           <label class="radioLabel"><Input name="filter" value="1" type="radio" class="TaskOptions__radioOptions__inputRadio" id="filter" > Open</option></label>
-          <label class="radioLabel"><input name="filter" value="2" type="radio" class="TaskOptions__radioOptions__inputRadio" id="filter" checked="checked"> Done</option></label>
+          <label class="radioLabel"><input name="filter" value="2" type="radio" class="TaskOptions__radioOptions__inputRadio" id="filter" > Done</option></label>
         </fieldset>
           <button id="removeButton" class="button">Remove Done Todos</button>
         </fieldset>

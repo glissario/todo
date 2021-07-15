@@ -30,7 +30,7 @@ function addListEntry(e) {
   currentLabel.className = "taskName";
 
   //connect with list element
-  line.className = "yourToDo__eventList";
+  line.className = "yourToDo__eventList__listElement";
   line.appendChild(checkbox);
   line.appendChild(currentLabel);
   currentLabel.appendChild(node);
@@ -39,12 +39,16 @@ function addListEntry(e) {
   oldList.appendChild(line);
 
   input = document.querySelector("#taskInput").value = "";
-  taskFilter();
 }
 
-// Filter List
-// get to know the active Filter
+// removeButton
 
+//let removeButton = document.querySelector("#removeButton");
+//removeButton.addEventListener ("click", removeDoneTasks)
+
+// Filter List
+
+// get to know the active Filter
 function actualToFilter() {
   filterField = document.querySelectorAll("#filter");
   for (let i = 0; i < 3; i++) {
@@ -53,21 +57,50 @@ function actualToFilter() {
     }
   }
 }
-taskFilter();
 
 // -> run the filter
 function taskFilter() {
   actualToFilter();
-  //console.log(actualFilter);
   switch (actualFilter) {
-    case "0":
-      console.log("all");
+    case "0": // all Tasks
+      const allTask = document.querySelectorAll(
+        ".yourToDo__eventList__listElement"
+      );
+      for (let i = 0; i < allTask.length; i++) {
+        allTask[i].style.display = "";
+      }
       break;
-    case "1":
-      console.log("open");
+
+    case "1": // show the open, hide the done
+      const openTask = document.querySelectorAll(
+        ".yourToDo__eventList__listElement"
+      );
+
+      for (let i = 0; i < openTask.length; i++) {
+        let cb = openTask[i].firstChild;
+        if (cb.checked) {
+          openTask[i].style.display = "none";
+        }
+        if (!cb.checked) {
+          openTask[i].style.display = "";
+        }
+      }
       break;
-    case "2":
-      console.log("done");
+
+    case "2": // show the done, hide the open
+      const doneTask = document.querySelectorAll(
+        ".yourToDo__eventList__listElement"
+      );
+
+      for (let i = 0; i < doneTask.length; i++) {
+        let cb = doneTask[i].firstChild;
+        if (!cb.checked) {
+          doneTask[i].style.display = "none";
+        }
+        if (cb.checked) {
+          doneTask[i].style.display = "";
+        }
+      }
       break;
   }
 }
