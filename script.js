@@ -24,7 +24,7 @@ function addListEntry(e) {
   const node = document.createTextNode(input);
 
   if (node.length < 5) {
-    alert("At least 5 characters pls");
+    confirm("At least 5 characters pls");
     return;
   }
 
@@ -89,6 +89,7 @@ function taskFilter(e) {
       const allTask = document.querySelectorAll(
         ".yourToDo__eventList__listElement"
       );
+      console.log(allTask);
       for (let i = 0; i < allTask.length; i++) {
         allTask[i].style.display = "";
       }

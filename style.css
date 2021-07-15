@@ -184,7 +184,7 @@ h2 {
 }
 
 input[type="checkbox"]:checked + label {
-  color: #ef476f;
+  color: black;
   font-style: oblique;
   text-decoration: line-through;
   font-size: 1rem;
