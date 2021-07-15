@@ -17,3 +17,9 @@
 - first funktions: add Task
 - mark done tasks
 - restyle
+
+  15.07.
+
+- filter
+- remove done tasks
+- custom styling
