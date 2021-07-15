@@ -23,3 +23,4 @@
 - filter
 - remove done tasks
 - custom styling
+- breakpoints
