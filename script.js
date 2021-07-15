@@ -1,6 +1,7 @@
 // global Variables:
 let filterField = null;
 let actualFilter = null;
+let toDoList = [];
 
 // add Task to List
 
@@ -22,6 +23,11 @@ function addListEntry(e) {
   let input = document.querySelector("#taskInput").value;
   const node = document.createTextNode(input);
 
+  if (node.length < 5) {
+    alert("At least 5 characters pls");
+    return;
+  }
+
   checkbox.type = "checkbox";
   checkbox.className = "taskCheckbox";
   checkbox.id = "taskCheckbox";
@@ -37,6 +43,10 @@ function addListEntry(e) {
 
   const oldList = document.querySelector("#eventList");
   oldList.appendChild(line);
+
+  console.log(input);
+  toDoList.push(input);
+  //localStorage.setItem("storageList", JSON.stringify(toDoList));
 
   input = document.querySelector("#taskInput").value = "";
 }
@@ -72,7 +82,7 @@ function actualToFilter() {
 }
 
 // -> run the filter
-function taskFilter() {
+function taskFilter(e) {
   actualToFilter();
   switch (actualFilter) {
     case "0": // all Tasks
