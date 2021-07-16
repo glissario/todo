@@ -24,3 +24,7 @@
 - remove done tasks
 - custom styling
 - breakpoints
+
+  16.07.:
+
+- local storage
