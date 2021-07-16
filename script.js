@@ -4,7 +4,7 @@ let actualFilter = null;
 let toDoList = [];
 let initTask = [];
 
-// Eventlistener for addbutton opr input field (keyboard #13) 
+// Eventlistener for addbutton opr input field (keyboard #13)
 
 let addButton = document.querySelector("#addButton");
 addButton.addEventListener("click", addListEntry);
@@ -92,7 +92,6 @@ function actualToFilter() {
 // case distinction of values parent-radiobutton
 // show all/open/done
 
-case distinction: values of radio-buttons
 function taskFilter(e) {
   actualToFilter();
   switch (actualFilter) {
