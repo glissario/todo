@@ -22,17 +22,17 @@
         <button class="button" id="addButton">Add</button>
       </section>
       <section class="taskOptions">
-        <h2> Filter & Options</h2>
-        <fieldset name="option" class="taskOptions__radioOptions" id="radioOptions" onchange="taskFilter()">
+        <h2>Filter & Options</h2>
+        <div name="option" class="taskOptions__radioOptions" id="radioOptions" onchange="taskFilter()">
           <label class="radioLabel"><Input name="filter" value="0" type="radio" class="taskOptions__radioOptions__inputRadio" id="filter" checked="checked"> All</option></label>
           <label class="radioLabel"><Input name="filter" value="1" type="radio" class="taskOptions__radioOptions__inputRadio" id="filter" > Open</option></label>
           <label class="radioLabel"><input name="filter" value="2" type="radio" class="taskOptions__radioOptions__inputRadio" id="filter" > Done</option></label>
-        </fieldset>
+          </div>
           <button id="removeButton" class="button">Remove Done Todos</button>
         </fieldset>
       </section>
       <section class="yourToDo">
-        <h2> Your Todos</h2>
+        <h2>Your Todos</h2>
         <ul id="eventList" class="yourToDo__eventList">
         </ul>
       </section>

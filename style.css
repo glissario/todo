@@ -50,6 +50,7 @@ h2 {
   all: unset;
   font-family: "Mukta", sans-serif;
   background-color: white;
+  border: 2px solid transparent;
   padding: 0.5rem;
   margin-right: 1rem;
   border-radius: 5%;
@@ -58,11 +59,11 @@ h2 {
 }
 
 .taskInput__textInput:active {
-  border: 2px #f5ab00 solid;
+  border: 2.5px #f5ab00 solid;
   transition: 0.5s;
 }
 .taskInput__textInput:focus {
-  border: 2px #f5ab00 solid;
+  border: 2.5px #f5ab00 solid;
   transition: 0.5s;
 }
 

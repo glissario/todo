@@ -2,6 +2,7 @@
 let filterField = null;
 let actualFilter = null;
 let toDoList = [];
+let todos = [];
 let initTask = [];
 
 // Eventlistener for addbutton opr input field (keyboard #13)
@@ -16,64 +17,78 @@ addInput.addEventListener("keydown", function (e) {
   }
 });
 
-// create new Line with input (type checkbox) and label element
-// connect the new element with former list
+// create new Line and a new object (attributes: id, description, status)
+// connect the new element with former list.
 
 function addListEntry(e) {
-  const line = document.createElement("li");
-  const checkbox = document.createElement("input");
-  const currentLabel = document.createElement("label");
-
   let input = document.querySelector("#taskInput").value;
-  const node = document.createTextNode(input);
-
-  if (node.length < 5) {
+  if (input.length < 5) {
     confirm("At least 5 characters pls");
     return;
   }
 
-  checkbox.type = "checkbox";
-  checkbox.className = "taskCheckbox";
-  checkbox.id = "taskCheckbox";
+  const todoId = input.trim().toLowerCase().replaceAll(" ", "-");
 
-  currentLabel.for = "taskCheckbox";
-  currentLabel.className = "taskName";
+  const newTodo = {
+    id: todoId,
+    description: input,
+    status: false,
+  };
 
-  //connect with list element
-  line.className = "yourToDo__eventList__listElement";
-  line.appendChild(checkbox);
-  line.appendChild(currentLabel);
-  currentLabel.appendChild(node);
+  todos.push(newTodo);
+
+  localStorage.setItem("Todo-storage", JSON.stringify(todos));
+
+  const newListElement = document.createElement("li");
+  newListElement.todoObj = newTodo;
+  newListElement.classList = "yourToDo__eventList__listElement";
+
+  const ncheckbox = document.createElement("input");
+  ncheckbox.type = "checkbox";
+  ncheckbox.classList = "taskCheckbox";
+  ncheckbox.id = "taskCheckbox";
+
+  const ncurrentLabel = document.createElement("label");
+
+  ncurrentLabel.classList = "taskName";
+  const nnode = document.createTextNode(input);
+
+  newListElement.appendChild(ncheckbox);
+  newListElement.appendChild(ncurrentLabel);
+  ncurrentLabel.appendChild(nnode);
 
   const oldList = document.querySelector("#eventList");
-  oldList.appendChild(line);
-
-  //console.log(input);
-  toDoList.push(input);
-  localStorage.setItem("storageList", JSON.stringify(toDoList));
+  oldList.appendChild(newListElement);
 
   input = document.querySelector("#taskInput").value = "";
 }
 
+eventList.addEventListener("change", function (e) {
+  const newDoneState = e.target.checked;
+  const todoObj = e.target.parentElement.todoObj;
+  todoObj.status = newDoneState;
+
+  localStorage.setItem("Todo-storage", JSON.stringify(todos));
+});
+
 // removeButton and function
+// refactored
 
 let removeButton = document.querySelector("#removeButton");
 removeButton.addEventListener("click", removeDoneTasks);
 
 function removeDoneTasks() {
-  const doneTask = document.querySelectorAll(
-    ".yourToDo__eventList__listElement"
-  );
-
-  for (let i = 0; i < doneTask.length; i++) {
-    let cb = doneTask[i].firstChild;
-    if (cb.checked) {
-      const indexToDelete = toDoList.indexOf(doneTask[i].lastChild.innerHTML);
-      toDoList.splice(indexToDelete, 1);
-      localStorage.setItem("storageList", JSON.stringify(toDoList));
-      doneTask[i].remove();
+  const taskList = document.querySelector(".yourToDo__eventList");
+  for (let i = taskList.children.length - 1; i >= 0; i--) {
+    let cb = taskList.children[i].todoObj.status;
+    if (cb) {
+      const index = todos.indexOf(taskList.children[i].todoObj);
+      todos.splice(index, 1);
+      taskList.children[i].remove();
     }
   }
+
+  localStorage.setItem("Todo-storage", JSON.stringify(todos));
 }
 
 // Filter List
@@ -91,6 +106,8 @@ function actualToFilter() {
 // -> run the filter:
 // case distinction of values parent-radiobutton
 // show all/open/done
+
+// not refactured yet
 
 function taskFilter(e) {
   actualToFilter();
@@ -140,39 +157,40 @@ function taskFilter(e) {
 }
 
 // Local storage: init App after refresh
-// initTask becomes Array with Tasks from local storage
+// initTask becomes Array with Tasks as an object from local storage
 // initializing the Tasks
-// save Array "toDoList"
+// save Array "todos"
 initApp();
 
 function initApp() {
-  if (localStorage.getItem("storageList") !== null) {
-    initTask = JSON.parse(localStorage.getItem("storageList"));
+  if (localStorage.getItem("Todo-storage") !== null) {
+    initTask = JSON.parse(localStorage.getItem("Todo-storage"));
+    todos = initTask;
 
     for (i = 0; i < initTask.length; i++) {
       const line = document.createElement("li");
+      line.todoObj = initTask[i];
+
       const checkbox = document.createElement("input");
       const currentLabel = document.createElement("label");
 
-      let input = initTask[i];
-      const node = document.createTextNode(input);
+      const node = document.createTextNode(initTask[i].description);
 
       checkbox.type = "checkbox";
-      checkbox.className = "taskCheckbox";
+      checkbox.classList = "taskCheckbox";
       checkbox.id = "taskCheckbox";
+      checkbox.checked = initTask[i].status;
 
-      currentLabel.for = "taskCheckbox";
-      currentLabel.className = "taskName";
+      //currentLabel.for = "taskCheckbox";
+      currentLabel.classList = "taskName";
 
-      line.className = "yourToDo__eventList__listElement";
+      line.classList = "yourToDo__eventList__listElement";
       line.appendChild(checkbox);
       line.appendChild(currentLabel);
       currentLabel.appendChild(node);
 
       const oldList = document.querySelector("#eventList");
       oldList.appendChild(line);
-
-      toDoList.push(initTask[i]);
     }
   }
 }
