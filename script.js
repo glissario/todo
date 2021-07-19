@@ -75,15 +75,20 @@ function addListEntry(e) {
 
   const ncurrentLabel = document.createElement("label");
   ncurrentLabel.classList = "taskName";
-  ncurrentLabel.setAttribute("for", todoId);
+  //ncurrentLabel.setAttribute("for", todoId);
   const nnode = document.createTextNode(input);
 
-  newListElement.appendChild(ncheckbox);
-  newListElement.appendChild(ncurrentLabel);
+  const newColorButton = document.createElement("button");
+  const buttonNode = document.createTextNode("new Color");
+  newColorButton.appendChild(buttonNode);
+  newColorButton.classList = "button";
+
   ncurrentLabel.appendChild(nnode);
 
   const oldList = document.querySelector("#eventList");
   oldList.appendChild(newListElement);
+  sort();
+
   input = document.querySelector("#taskInput").value = "";
 }
 
@@ -177,6 +182,40 @@ filterEvent.addEventListener("change", function (e) {
   }
 });
 
+function sort() {
+  let todoList = [];
+  todoList = document.querySelectorAll(".yourToDo__eventList__listElement");
+  const oldList = document.querySelector("#eventList");
+
+  for (let i = oldList.children.length - 1; i >= 0; i--) {
+    oldList.children[i].remove();
+  }
+
+  todos.forEach(function (todo) {
+    if (todo.labelClass === "bg-color1") {
+      newElement = addElementListFromObj(todo);
+
+      oldList.appendChild(newElement);
+    }
+  });
+
+  todos.forEach(function (todo) {
+    if (todo.labelClass === "bg-color2") {
+      newElement = addElementListFromObj(todo);
+
+      oldList.appendChild(newElement);
+    }
+  });
+
+  todos.forEach(function (todo) {
+    if (todo.labelClass === "bg-color3") {
+      newElement = addElementListFromObj(todo);
+
+      oldList.appendChild(newElement);
+    }
+  });
+}
+
 // Local storage: init App after refresh
 // initTask becomes Array with Tasks as an object from local storage
 // initializing the Tasks
@@ -214,6 +253,37 @@ function initApp() {
 
       const oldList = document.querySelector("#eventList");
       oldList.appendChild(line);
+      sort();
     }
   }
 }
+
+function addElementListFromObj(element) {
+  const line = document.createElement("li");
+  line.todoObj = element;
+
+  const checkbox = document.createElement("input");
+  const currentLabel = document.createElement("label");
+  const node = document.createTextNode(element.description);
+
+  checkbox.type = "checkbox";
+  checkbox.classList = "taskCheckbox";
+  checkbox.id = "taskCheckbox";
+  checkbox.checked = element.status;
+  line.appendChild(checkbox);
+
+  currentLabel.classList = "taskName";
+  line.classList = element.labelClass;
+
+  line.appendChild(currentLabel);
+  currentLabel.appendChild(node);
+  return line;
+}
+/*
+constructor(desc, todoid, label) {
+  this.description = desc;
+  this.status = false;
+  this.id = todoid;
+  this.labelClass = label;
+}
+*/
