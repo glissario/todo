@@ -5,6 +5,20 @@ let toDoList = [];
 let todos = [];
 let initTask = [];
 
+const filterEvent = document.querySelector("#radioOptions");
+const eventList = document.querySelector("#eventList");
+
+// class Todo -> construktor
+
+class Todo {
+  constructor(desc, todoid, label) {
+    this.description = desc;
+    this.status = false;
+    this.id = todoid;
+    this.labelClass = label;
+  }
+}
+
 // Eventlistener for addbutton opr input field (keyboard #13)
 
 let addButton = document.querySelector("#addButton");
@@ -20,28 +34,39 @@ addInput.addEventListener("keydown", function (e) {
 // create new Line and a new object (attributes: id, description, status)
 // connect the new element with former list.
 
+function labelColor() {
+  const labelColor = document.querySelectorAll(".label-color");
+
+  for (let i = 0; i < 3; i++) {
+    if (labelColor[i].checked) {
+      color = labelColor[i].classList[1];
+      return color;
+    }
+  }
+}
+
 function addListEntry(e) {
   let input = document.querySelector("#taskInput").value;
+
   if (input.length < 5) {
     confirm("At least 5 characters pls");
     return;
   }
 
   const todoId = input.trim().toLowerCase().replaceAll(" ", "-");
-
-  const newTodo = {
-    id: todoId,
-    description: input,
-    status: false,
-  };
+  let labelBGcolor = labelColor();
+  const newTodo = new Todo(input, todoId, labelBGcolor);
 
   todos.push(newTodo);
-
   localStorage.setItem("Todo-storage", JSON.stringify(todos));
 
   const newListElement = document.createElement("li");
   newListElement.todoObj = newTodo;
-  newListElement.classList = "yourToDo__eventList__listElement";
+
+  //newTodo.dom = newListElement;
+  newListElement.classList =
+    labelBGcolor + " " + "yourToDo__eventList__listElement";
+  //NewListElement.style.backgroundColor = labelBGcolor;
 
   const ncheckbox = document.createElement("input");
   ncheckbox.type = "checkbox";
@@ -49,8 +74,8 @@ function addListEntry(e) {
   ncheckbox.id = "taskCheckbox";
 
   const ncurrentLabel = document.createElement("label");
-
   ncurrentLabel.classList = "taskName";
+  ncurrentLabel.setAttribute("for", todoId);
   const nnode = document.createTextNode(input);
 
   newListElement.appendChild(ncheckbox);
@@ -59,7 +84,6 @@ function addListEntry(e) {
 
   const oldList = document.querySelector("#eventList");
   oldList.appendChild(newListElement);
-
   input = document.querySelector("#taskInput").value = "";
 }
 
@@ -87,7 +111,6 @@ function removeDoneTasks() {
       taskList.children[i].remove();
     }
   }
-
   localStorage.setItem("Todo-storage", JSON.stringify(todos));
 }
 
@@ -102,27 +125,25 @@ function actualToFilter() {
     }
   }
 }
-
 // -> run the filter:
 // case distinction of values parent-radiobutton
 // show all/open/done
 
 // not refactured yet
-
-function taskFilter(e) {
+filterEvent.addEventListener("change", function (e) {
   actualToFilter();
+
   switch (actualFilter) {
-    case "0": // all Tasks
+    case "all": // all Tasks
       const allTask = document.querySelectorAll(
         ".yourToDo__eventList__listElement"
       );
-      console.log(allTask);
       for (let i = 0; i < allTask.length; i++) {
         allTask[i].style.display = "";
       }
       break;
 
-    case "1": // show the open, hide the done
+    case "open": // show the open, hide the done
       const openTask = document.querySelectorAll(
         ".yourToDo__eventList__listElement"
       );
@@ -138,7 +159,7 @@ function taskFilter(e) {
       }
       break;
 
-    case "2": // show the done, hide the open
+    case "done": // show the done, hide the open
       const doneTask = document.querySelectorAll(
         ".yourToDo__eventList__listElement"
       );
@@ -154,7 +175,7 @@ function taskFilter(e) {
       }
       break;
   }
-}
+});
 
 // Local storage: init App after refresh
 // initTask becomes Array with Tasks as an object from local storage
@@ -184,7 +205,9 @@ function initApp() {
       //currentLabel.for = "taskCheckbox";
       currentLabel.classList = "taskName";
 
-      line.classList = "yourToDo__eventList__listElement";
+      //line.classList = "yourToDo__eventList__listElement";
+      line.classList =
+        initTask[i].labelClass + " " + "yourToDo__eventList__listElement";
       line.appendChild(checkbox);
       line.appendChild(currentLabel);
       currentLabel.appendChild(node);

@@ -1,0 +1,60 @@
+const todos = [];
+const todoList = document.querySelector("#todo-list");
+const newTodoInput = document.querySelector("#new-todo");
+const addButton = document.querySelector("#add-button");
+
+/**
+ * Neues Todo erstellen
+ */
+addButton.addEventListener("click", function () {
+  const newTodoText = newTodoInput.value;
+  const todoId = newTodoText.trim().toLowerCase().replaceAll(" ", "-");
+
+  const newTodo = {
+    todoId: todoId,
+    description: newTodoText,
+    done: false,
+  };
+  todos.push(newTodo);
+
+  const newTodoLi = document.createElement("li");
+  newTodoLi.todoObj = newTodo;
+
+  const checkbox = document.createElement("input");
+  checkbox.setAttribute("type", "checkbox");
+  checkbox.setAttribute("id", todoId);
+  newTodoLi.appendChild(checkbox);
+
+  const label = document.createElement("label");
+  const textNode = document.createTextNode(newTodoText);
+  label.append(textNode);
+  label.setAttribute("for", todoId);
+  newTodoLi.appendChild(label);
+
+  todoList.appendChild(newTodoLi);
+
+  newTodoInput.value = "";
+});
+
+todoList.addEventListener("change", function (e) {
+  const newDoneState = e.target.checked;
+  const todoObj = e.target.parentElement.todoObj;
+  todoObj.done = newDoneState;
+});
+
+const filterDone = document.querySelector("#btn-filter-done");
+filterDone.addEventListener("click", function () {
+  for (let i = 0; i < todoList.children.length; i++) {
+    const todoObj = todoList.children[i].todoObj;
+    if (todoObj.done === false) {
+      todoList.children[i].hidden = true;
+    }
+  }
+});
+
+const filterAll = document.querySelector("#btn-filter-all");
+filterAll.addEventListener("click", function () {
+  for (let i = 0; i < todoList.children.length; i++) {
+    todoList.children[i].hidden = false;
+  }
+});
