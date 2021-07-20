@@ -33,7 +33,6 @@ addInput.addEventListener("keydown", function (e) {
 
 /*function labelColor() {
   const labelColor = document.querySelectorAll(".label-color");
-
   for (let i = 0; i < 3; i++) {
     if (labelColor[i].checked) {
       color = labelColor[i].classList[1];
@@ -60,21 +59,6 @@ function createGreenColorButton() {
   return changeColorButton1;
 }
 
-/* eventList.addEventListener("click", function (e) {
-  const goal = e.target;
-  console.log(goal);
-});
-
-
-function changeBackgroundColor(e) {
-  color = document.querySelector(".yourToDo__eventList__listElement");
-  const goal = e.target;
-  console.log(e.target);
-}*/
-
-// create new Line and a new object (attributes: id, description, status, labelcolor (implement via class))
-// connect the new element with former list.
-
 function addListEntry(e) {
   let input = document.querySelector("#taskInput").value;
 
@@ -83,8 +67,6 @@ function addListEntry(e) {
     return;
   }
 
-  //const todoId = input.trim().toLowerCase().replaceAll(" ", "-");
-  //let labelBGcolor = labelColor();
   const newTodo = new Todo(input);
 
   todos.push(newTodo);
@@ -93,16 +75,12 @@ function addListEntry(e) {
   const newListElement = document.createElement("li");
   newListElement.todoObj = newTodo;
 
-  // create a Node, using a todoObj
   addElementListFromObj(newTodo);
 
-  //const oldList = document.querySelector("#eventList");
-  //oldList.appendChild(newListElement);
-  //sort();
-
-  console.log(newListElement.todoObj);
+  //console.log(newListElement.todoObj);
 
   PostRestData(newTodo);
+  getRestID();
 
   input = document.querySelector("#taskInput").value = "";
 }
@@ -110,10 +88,8 @@ function addListEntry(e) {
 // e.target größer setzen?!
 eventList.addEventListener("change", function (e) {
   const newDoneState = e.target.checked;
-  console.log(newDoneState);
   const todoObj = e.target.parentElement.todoObj;
   todoObj.done = newDoneState;
-  console.log(todoObj);
   PutRestData(todoObj);
   localStorage.setItem("Todo-storage", JSON.stringify(todos));
 });
@@ -202,7 +178,7 @@ filterEvent.addEventListener("change", function (e) {
   }
 });
 
-function sort() {
+/*function sort() {
   let todoList = [];
   todoList = document.querySelectorAll(".yourToDo__eventList__listElement");
   const oldList = document.querySelector("#eventList");
@@ -233,7 +209,7 @@ function sort() {
       oldList.appendChild(newElement);
     }
   });
-}
+} */
 
 // Local storage: init App after refresh
 // initTask becomes Array with Tasks as an object from local storage
@@ -241,28 +217,21 @@ function sort() {
 // save Array "todos" -- commented out cause of using REST-data
 /*
 initApp();
-
 function initApp() {
   if (localStorage.getItem("Todo-storage") !== null) {
     initTask = JSON.parse(localStorage.getItem("Todo-storage"));
     todos = initTask;
-
     for (i = 0; i < initTask.length; i++) {
       addElementListFromObj(initTask[i]);
-
       const line = document.createElement("li");
       line.todoObj = initTask[i];
-
       addElementListFromObj(initTask[i]);
-
       const oldList = document.querySelector("#eventList");
-
       oldList.appendChild(line);
       sort();
     }
   }
 }
-
 */
 // get an element, type todoObl -> return a Node to add it to the DOM.
 
@@ -300,6 +269,24 @@ function addElementListFromObj(element) {
 
 GetRestData();
 
+function getRestID() {
+  fetch("http://localhost:4730/todos")
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+      const lastElement = document.querySelector(
+        ".yourToDo__eventList"
+      ).lastChild;
+      data.forEach(function (item) {
+        if (item.description.includes(lastElement.todoObj.description)) {
+          //console.log("hurray" + item.id);
+          lastElement.todoObj.id = item.id;
+        }
+      });
+    });
+}
+
 function GetRestData() {
   fetch("http://localhost:4730/todos")
     .then(function (response) {
@@ -310,10 +297,10 @@ function GetRestData() {
 
       for (i = 0; i < data.length; i++) {
         const newListElement = document.createElement("li");
+
         newListElement.todoObj = addElementListFromObj(data[i]);
         //console.log(newListElement);
       }
-      console.log(data);
     });
 }
 
@@ -335,8 +322,6 @@ function PostRestData(element) {
 }
 
 function deleteRestData(element) {
-  console.log(element);
-
   var myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
 
