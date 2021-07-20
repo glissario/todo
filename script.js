@@ -64,26 +64,8 @@ function addListEntry(e) {
   const newListElement = document.createElement("li");
   newListElement.todoObj = newTodo;
 
-  newListElement.classList =
-    labelBGcolor + " " + "yourToDo__eventList__listElement";
-  //NewListElement.style.backgroundColor = labelBGcolor;
-
-  const ncheckbox = document.createElement("input");
-  ncheckbox.type = "checkbox";
-  ncheckbox.classList = "taskCheckbox";
-  ncheckbox.id = "taskCheckbox";
-
-  const ncurrentLabel = document.createElement("label");
-  ncurrentLabel.classList = "taskName";
-  //ncurrentLabel.setAttribute("for", todoId);
-  const nnode = document.createTextNode(input);
-
-  const newColorButton = document.createElement("button");
-  const buttonNode = document.createTextNode("new Color");
-  newColorButton.appendChild(buttonNode);
-  newColorButton.classList = "button";
-
-  ncurrentLabel.appendChild(nnode);
+  // create a Node, using a todoObj
+  addElementListFromObj(newTodo);
 
   const oldList = document.querySelector("#eventList");
   oldList.appendChild(newListElement);
@@ -227,35 +209,22 @@ function initApp() {
     todos = initTask;
 
     for (i = 0; i < initTask.length; i++) {
+      addElementListFromObj(initTask[i]);
+
       const line = document.createElement("li");
       line.todoObj = initTask[i];
 
-      const checkbox = document.createElement("input");
-      const currentLabel = document.createElement("label");
-
-      const node = document.createTextNode(initTask[i].description);
-
-      checkbox.type = "checkbox";
-      checkbox.classList = "taskCheckbox";
-      checkbox.id = "taskCheckbox";
-      checkbox.checked = initTask[i].status;
-
-      //currentLabel.for = "taskCheckbox";
-      currentLabel.classList = "taskName";
-
-      //line.classList = "yourToDo__eventList__listElement";
-      line.classList =
-        initTask[i].labelClass + " " + "yourToDo__eventList__listElement";
-      line.appendChild(checkbox);
-      line.appendChild(currentLabel);
-      currentLabel.appendChild(node);
+      addElementListFromObj(initTask[i]);
 
       const oldList = document.querySelector("#eventList");
+
       oldList.appendChild(line);
       sort();
     }
   }
 }
+
+// get an element, type todoObl -> return a Node to add it to the DOM.
 
 function addElementListFromObj(element) {
   const line = document.createElement("li");

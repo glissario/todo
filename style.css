@@ -58,7 +58,6 @@ h2 {
   padding: 1rem;
   margin-right: 1rem;
   border-radius: 5%;
-  border: 1px solid blue;
   width: auto;
   min-width: none;
 }
@@ -90,7 +89,6 @@ h2 {
   display: grid;
   width: 100%;
   height: 10rem;
-  _border: 2px solid black;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr;
   grid-column-start: 1;
@@ -250,7 +248,7 @@ h2 {
 }
 
 input[type="checkbox"]:checked + label {
-  color: black;
+  color: #073b4c;
   font-style: oblique;
   text-decoration: line-through;
   font-size: 1rem;
