@@ -31,8 +31,7 @@ addInput.addEventListener("keydown", function (e) {
   }
 });
 
-// create new Line and a new object (attributes: id, description, status)
-// connect the new element with former list.
+// getting the right label color
 
 function labelColor() {
   const labelColor = document.querySelectorAll(".label-color");
@@ -44,6 +43,8 @@ function labelColor() {
     }
   }
 }
+// create new Line and a new object (attributes: id, description, status, labelcolor (implement via class))
+// connect the new element with former list.
 
 function addListEntry(e) {
   let input = document.querySelector("#taskInput").value;
@@ -63,7 +64,6 @@ function addListEntry(e) {
   const newListElement = document.createElement("li");
   newListElement.todoObj = newTodo;
 
-  //newTodo.dom = newListElement;
   newListElement.classList =
     labelBGcolor + " " + "yourToDo__eventList__listElement";
   //NewListElement.style.backgroundColor = labelBGcolor;
@@ -194,7 +194,6 @@ function sort() {
   todos.forEach(function (todo) {
     if (todo.labelClass === "bg-color1") {
       newElement = addElementListFromObj(todo);
-
       oldList.appendChild(newElement);
     }
   });
@@ -273,17 +272,10 @@ function addElementListFromObj(element) {
   line.appendChild(checkbox);
 
   currentLabel.classList = "taskName";
-  line.classList = element.labelClass;
+  line.classList =
+    element.labelClass + " " + "yourToDo__eventList__listElement";
 
   line.appendChild(currentLabel);
   currentLabel.appendChild(node);
   return line;
 }
-/*
-constructor(desc, todoid, label) {
-  this.description = desc;
-  this.status = false;
-  this.id = todoid;
-  this.labelClass = label;
-}
-*/

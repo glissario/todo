@@ -19,7 +19,7 @@ body {
 }
 
 main {
-  padding: 2rem 5rem;
+  padding: 2rem 1.5rem;
 }
 
 h1 {
@@ -59,7 +59,7 @@ h2 {
   margin-right: 1rem;
   border-radius: 5%;
   border: 1px solid blue;
-  width: 75%;
+  width: auto;
   min-width: none;
 }
 
@@ -270,12 +270,15 @@ li:focus-within {
   html {
     font-size: 18px;
   }
+  main {
+    padding: 2rem 2.5rem;
+  }
 
   body {
     width: 95%;
   }
   .taskInput__textInput {
-    width: 75%;
+    width: auto;
   }
 }
 
@@ -283,11 +286,14 @@ li:focus-within {
   html {
     font-size: 20px;
   }
+  main {
+    padding: 2rem 3rem;
+  }
 
   body {
     width: 90%;
   }
   .taskInput__textInput {
-    width: 80%;
+    width: auto;
   }
 }
