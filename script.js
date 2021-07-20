@@ -267,8 +267,6 @@ function addElementListFromObj(element) {
   oldList.appendChild(line);
 }
 
-GetRestData();
-
 function getRestID() {
   fetch("http://localhost:4730/todos")
     .then(function (response) {
@@ -286,9 +284,24 @@ function getRestID() {
       });
     });
 }
+GetRestData();
 
 function GetRestData() {
-  fetch("http://localhost:4730/todos")
+  var myHeaders = new Headers();
+  myHeaders.append("Content-Type", "application/json");
+
+  var raw = JSON.stringify({
+    description: "Learn PA",
+    done: false,
+  });
+
+  var requestOptions = {
+    method: "GET",
+    headers: myHeaders,
+    redirect: "follow",
+  };
+
+  fetch("http://localhost:4730/todos/", requestOptions)
     .then(function (response) {
       return response.json();
     })
@@ -299,7 +312,6 @@ function GetRestData() {
         const newListElement = document.createElement("li");
 
         newListElement.todoObj = addElementListFromObj(data[i]);
-        //console.log(newListElement);
       }
     });
 }
