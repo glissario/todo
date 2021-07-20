@@ -114,13 +114,13 @@ h2 {
 }
 
 .bg-color1 {
-  background-color: #ef476f;
+  _background-color: #ef476f;
 }
 .bg-color2 {
-  background-color: #ffd470;
+  _background-color: #ffd470;
 }
 .bg-color3 {
-  background-color: #06d6a0;
+  _background-color: #06d6a0;
 }
 
 .label-color::before {
@@ -203,6 +203,7 @@ h2 {
   color: black;
   border-radius: 0.25rem;
   padding-left: 0px;
+  background-color: white;
 }
 
 .yourToDo__eventList__listElement:focus {
@@ -211,6 +212,7 @@ h2 {
 }
 
 .taskName {
+  flex-grow: 15;
   padding: 0.5rem;
   font-size: 1.5rem;
 }
@@ -248,10 +250,27 @@ h2 {
 }
 
 input[type="checkbox"]:checked + label {
+  flex-grow: 15;
   color: #073b4c;
   font-style: oblique;
   text-decoration: line-through;
   font-size: 1rem;
+}
+
+.color-button1 {
+  width: 1.5rem;
+  background-color: #ef476f;
+  border: 1px solid black;
+}
+.color-button2 {
+  width: 1.5rem;
+  background-color: #ffd470;
+  border: 1px solid black;
+}
+.color-button3 {
+  width: 1.5rem;
+  background-color: #06d6a0;
+  border: 1px solid black;
 }
 
 li:focus-within {

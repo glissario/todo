@@ -11,11 +11,9 @@ const eventList = document.querySelector("#eventList");
 // class Todo -> construktor
 
 class Todo {
-  constructor(desc, todoid, label) {
+  constructor(desc) {
     this.description = desc;
-    this.status = false;
-    this.id = todoid;
-    this.labelClass = label;
+    this.done = false;
   }
 }
 
@@ -33,7 +31,7 @@ addInput.addEventListener("keydown", function (e) {
 
 // getting the right label color
 
-function labelColor() {
+/*function labelColor() {
   const labelColor = document.querySelectorAll(".label-color");
 
   for (let i = 0; i < 3; i++) {
@@ -42,7 +40,38 @@ function labelColor() {
       return color;
     }
   }
+}*/
+
+function createRedColorButton() {
+  const changeColorButton1 = document.createElement("button");
+  changeColorButton1.classList = "color-button1";
+  return changeColorButton1;
 }
+
+function createOrangeColorButton() {
+  const changeColorButton1 = document.createElement("button");
+  changeColorButton1.classList = "color-button2";
+  return changeColorButton1;
+}
+
+function createGreenColorButton() {
+  const changeColorButton1 = document.createElement("button");
+  changeColorButton1.classList = "color-button3";
+  return changeColorButton1;
+}
+
+/* eventList.addEventListener("click", function (e) {
+  const goal = e.target;
+  console.log(goal);
+});
+
+
+function changeBackgroundColor(e) {
+  color = document.querySelector(".yourToDo__eventList__listElement");
+  const goal = e.target;
+  console.log(e.target);
+}*/
+
 // create new Line and a new object (attributes: id, description, status, labelcolor (implement via class))
 // connect the new element with former list.
 
@@ -54,9 +83,9 @@ function addListEntry(e) {
     return;
   }
 
-  const todoId = input.trim().toLowerCase().replaceAll(" ", "-");
-  let labelBGcolor = labelColor();
-  const newTodo = new Todo(input, todoId, labelBGcolor);
+  //const todoId = input.trim().toLowerCase().replaceAll(" ", "-");
+  //let labelBGcolor = labelColor();
+  const newTodo = new Todo(input);
 
   todos.push(newTodo);
   localStorage.setItem("Todo-storage", JSON.stringify(todos));
@@ -67,18 +96,25 @@ function addListEntry(e) {
   // create a Node, using a todoObj
   addElementListFromObj(newTodo);
 
-  const oldList = document.querySelector("#eventList");
-  oldList.appendChild(newListElement);
-  sort();
+  //const oldList = document.querySelector("#eventList");
+  //oldList.appendChild(newListElement);
+  //sort();
+
+  console.log(newListElement.todoObj);
+
+  PostRestData(newTodo);
 
   input = document.querySelector("#taskInput").value = "";
 }
 
+// e.target größer setzen?!
 eventList.addEventListener("change", function (e) {
   const newDoneState = e.target.checked;
+  console.log(newDoneState);
   const todoObj = e.target.parentElement.todoObj;
-  todoObj.status = newDoneState;
-
+  todoObj.done = newDoneState;
+  console.log(todoObj);
+  PutRestData(todoObj);
   localStorage.setItem("Todo-storage", JSON.stringify(todos));
 });
 
@@ -91,8 +127,10 @@ removeButton.addEventListener("click", removeDoneTasks);
 function removeDoneTasks() {
   const taskList = document.querySelector(".yourToDo__eventList");
   for (let i = taskList.children.length - 1; i >= 0; i--) {
-    let cb = taskList.children[i].todoObj.status;
+    let cb = taskList.children[i].todoObj.done;
     if (cb) {
+      deleteRestData(taskList.children[i].todoObj);
+
       const index = todos.indexOf(taskList.children[i].todoObj);
       todos.splice(index, 1);
       taskList.children[i].remove();
@@ -200,7 +238,8 @@ function sort() {
 // Local storage: init App after refresh
 // initTask becomes Array with Tasks as an object from local storage
 // initializing the Tasks
-// save Array "todos"
+// save Array "todos" -- commented out cause of using REST-data
+/*
 initApp();
 
 function initApp() {
@@ -224,6 +263,7 @@ function initApp() {
   }
 }
 
+*/
 // get an element, type todoObl -> return a Node to add it to the DOM.
 
 function addElementListFromObj(element) {
@@ -237,14 +277,99 @@ function addElementListFromObj(element) {
   checkbox.type = "checkbox";
   checkbox.classList = "taskCheckbox";
   checkbox.id = "taskCheckbox";
-  checkbox.checked = element.status;
+  checkbox.checked = element.done;
   line.appendChild(checkbox);
 
   currentLabel.classList = "taskName";
   line.classList =
     element.labelClass + " " + "yourToDo__eventList__listElement";
 
+  const colorButton1 = createRedColorButton();
+  const colorButton2 = createOrangeColorButton();
+  const colorButton3 = createGreenColorButton();
+
   line.appendChild(currentLabel);
   currentLabel.appendChild(node);
-  return line;
+  line.appendChild(colorButton1);
+  line.appendChild(colorButton2);
+  line.appendChild(colorButton3);
+
+  const oldList = document.querySelector("#eventList");
+  oldList.appendChild(line);
+}
+
+GetRestData();
+
+function GetRestData() {
+  fetch("http://localhost:4730/todos")
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+      todos = data;
+
+      for (i = 0; i < data.length; i++) {
+        const newListElement = document.createElement("li");
+        newListElement.todoObj = addElementListFromObj(data[i]);
+        //console.log(newListElement);
+      }
+      console.log(data);
+    });
+}
+
+function PostRestData(element) {
+  var myHeaders = new Headers();
+  myHeaders.append("Content-Type", "application/json");
+
+  var requestOptions = {
+    method: "POST",
+    headers: myHeaders,
+    body: JSON.stringify(element),
+    redirect: "follow",
+  };
+
+  fetch("http://localhost:4730/todos?put", requestOptions)
+    .then((response) => response.text())
+    .then((result) => console.log(result))
+    .catch((error) => console.log("error", error));
+}
+
+function deleteRestData(element) {
+  console.log(element);
+
+  var myHeaders = new Headers();
+  myHeaders.append("Content-Type", "application/json");
+
+  var requestOptions = {
+    method: "DELETE",
+    headers: myHeaders,
+    body: JSON.stringify(element),
+    redirect: "follow",
+  };
+
+  const delLink = "http://localhost:4730/todos/" + element.id;
+
+  fetch(delLink, requestOptions)
+    .then((response) => response.text())
+    .then((result) => console.log(result))
+    .catch((error) => console.log("error", error));
+}
+
+function PutRestData(element) {
+  var myHeaders = new Headers();
+  myHeaders.append("Content-Type", "application/json");
+
+  var requestOptions = {
+    method: "PUT",
+    headers: myHeaders,
+    body: JSON.stringify(element),
+    redirect: "follow",
+  };
+
+  const changeLink = "http://localhost:4730/todos/" + element.id;
+
+  fetch(changeLink, requestOptions)
+    .then((response) => response.text())
+    .then((result) => console.log(result))
+    .catch((error) => console.log("error", error));
 }
