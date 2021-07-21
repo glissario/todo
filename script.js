@@ -276,9 +276,10 @@ function getRestID() {
       const lastElement = document.querySelector(
         ".yourToDo__eventList"
       ).lastChild;
+
       data.forEach(function (item) {
         if (item.description.includes(lastElement.todoObj.description)) {
-          //console.log("hurray" + item.id);
+          console.log("hurray" + item.id);
           lastElement.todoObj.id = item.id;
         }
       });
@@ -290,10 +291,10 @@ function GetRestData() {
   var myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
 
-  var raw = JSON.stringify({
-    description: "Learn PA",
-    done: false,
-  });
+  //var raw = JSON.stringify({
+  //  description: "Learn PA",
+  //  done: false,
+  //});
 
   var requestOptions = {
     method: "GET",
@@ -310,7 +311,6 @@ function GetRestData() {
 
       for (i = 0; i < data.length; i++) {
         const newListElement = document.createElement("li");
-
         newListElement.todoObj = addElementListFromObj(data[i]);
       }
     });
@@ -327,7 +327,7 @@ function PostRestData(element) {
     redirect: "follow",
   };
 
-  fetch("http://localhost:4730/todos?put", requestOptions)
+  fetch("http://localhost:4730/todos/", requestOptions)
     .then((response) => response.text())
     .then((result) => console.log(result))
     .catch((error) => console.log("error", error));
