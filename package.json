@@ -23,6 +23,7 @@
     "start": "node server",
     "serve": "serve ./src",
     "e2e": "cypress open",
+    "e2e:ci": "cypress run",
     "eslint:ci": "eslint src",
     "eslint": "eslint src --fix",
     "prettier:ci": "prettier src --check",
