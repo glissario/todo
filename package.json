@@ -1,0 +1,44 @@
+{
+  "name": "todo",
+  "version": "1.0.0",
+  "description": "App to save open Tasks Options to filter open and done tasks furthermore remove the finished todos.",
+  "main": "script.js",
+  "dependencies": {
+    "cypress": "^8.0.0",
+    "serve": "^12.0.0",
+    "json-server": "^0.15.1"
+  },
+  "devDependencies": {
+    "eslint": "^7.31.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-config-standard": "^16.0.3",
+    "eslint-plugin-import": "^2.23.4",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^3.4.0",
+    "eslint-plugin-promise": "^5.1.0",
+    "prettier": "^2.3.2"
+  },
+  "bin": "server.js",
+  "scripts": {
+    "start": "node server",
+    "devserver": "serve ./src",
+    "e2e": "cypress open",
+    "e2e:ci": "cypress run",
+    "eslint:ci": "eslint src",
+    "eslint": "eslint src --fix",
+    "prettier:ci": "prettier src --check",
+    "prettier": "prettier src --write",
+    "prettier-format": "prettier --config .prettierrc 'src/**/*.ts' --write"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/glissario/todo.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/glissario/todo/issues"
+  },
+  "homepage": "https://github.com/glissario/todo#readme "
+}
