@@ -21,7 +21,7 @@
   "bin": "server.js",
   "scripts": {
     "start": "node server",
-    "serve": "serve ./src",
+    "devserver": "serve ./src",
     "e2e": "cypress open",
     "e2e:ci": "cypress run",
     "eslint:ci": "eslint src",
