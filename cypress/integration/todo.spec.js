@@ -14,8 +14,11 @@ describe('todo-App', () => {
   });
 
   it('add task', () => {
-    cy.get('[data-test=todo-input]').should('exist').type('test');
-    cy.get('[data-test=todo-input]').click();
+    cy.get('[data-test=todo-input]').should('exist').type('1');
+    cy.get('[data-test=add-button]').click();
+    cy.on('window:confirm', (text) => {
+      expect(text).to.contains('At least 5 characters pls');
+    });
     cy.get('[data-test=task]').should('exist');
     cy.get('[data-test=task]').contains('Learn CSS');
   });
